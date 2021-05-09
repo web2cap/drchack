@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Django prod</title>
+    <meta name="dj4e" content="0029f088c57ad3b6ec589f9ba4f7a057"> 
+</head>
+<body>
+{% if menu %}
+<ul>
+    {% for k,v in menu.items %}
+        <li><a href="/{{ k }}/">{{ v }}</a></li>
+    {% endfor %}
+
+<li><p>STATIC:</p></li>
+<li><p><a href="/polls">A Polls Application</a></p></li>
+<li><p><a href="/hello">Test the session</a></p>
+
+</ul>
+{% endif %}
+{# <p><strong>0029f088</strong></p> #}
+
+
+</body>
+</html>
+
