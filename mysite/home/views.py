@@ -1,20 +1,20 @@
-#from django.http import HttpResponseRedirect
-#from django.shortcuts import get_object_or_404, render
 from django.shortcuts import render
-#from django.urls import reverse
-#from django.views import generic
+from django.views import View
+from django.conf import settings
 
-#from .models import Choice, Question
-from django.http import HttpResponse
+# Create your views here.
 
-def myview(request):
-    resp=HttpResponse('Secret: 0029f088')
-    resp.set_cookie('dj4e_cookie', '0029f088', max_age=1000)
-    #return resp
-    menu  = {
-        'pools' : 'A Polls Application',
-        'hello' : 'Test the session',
-        'autos' : 'Autos Application',
-        'cats'  : 'Cats CRUD',
-    }
-    return render(request, 'home/main.html', context = {'menu' : menu})
+# This is a little complex because we need to detect when we are
+# running in various configurations
+
+
+class HomeView(View):
+    def get(self, request):
+        print(request.get_host())
+        host = request.get_host()
+        islocal = host.find('localhost') >= 0 or host.find('127.0.0.1') >= 0
+        context = {
+            'installed': settings.INSTALLED_APPS,
+            'islocal': islocal
+        }
+        return render(request, 'home/main.html', context)
